@@ -31,7 +31,7 @@ unzip master.zip
 ```
 or
 ```shell
-git clone https://github.com/hbrust/k8s-ingress-demo-in-a-box/archive/master.git
+git clone https://github.com/hbrust/k8s-ingress-demo-in-a-box.git
 ```
 4. change into the k8s-ingress-demo-in-a-box directory
 if using `git clone` before
