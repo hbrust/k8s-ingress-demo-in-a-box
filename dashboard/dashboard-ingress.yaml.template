@@ -1,0 +1,20 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: dashboard-ingress
+  namespace: kube-system
+  annotations:
+    kubernetes.io/ingress.class: "citrix"
+    ingress.citrix.com/secure-backend: '{"kubernetes-dashboard":"true"}'
+spec:
+  tls:
+  - secretName: cpx-cert
+  rules:
+  - host: dashboard.${HOSTNAME}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: kubernetes-dashboard
+          servicePort: 443

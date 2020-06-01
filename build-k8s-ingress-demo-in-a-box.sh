@@ -74,6 +74,16 @@ else
   echo -e "${GREEN}[OK]${NC}"
 fi
 
+echo -n "- enable MicroK8s Dashboard..."
+microk8s.enable dashboard >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
 echo -n "- stop MicroK8s..."
 microk8s.stop >> $log
 if [ $? != 0 ]
@@ -215,6 +225,16 @@ else
   echo -e "${GREEN}[OK]${NC}"
 fi
 
+echo -n "- convert dashboard ingress template for testapp..."
+./convert-template.sh dashboard/dashboard-ingress.yaml.template > dashboard/dashboard-ingress.yaml
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
 echo -n "- convert testapp ingress template for testapp..."
 ./convert-template.sh testapp/testapp-ingress.yaml.template > testapp/testapp-ingress.yaml
 if [ $? != 0 ]
@@ -226,8 +246,29 @@ else
 fi
 
 # Begin K8s config
-# deploy cpx ingress
 echo "- begin K8s config..."
+
+# deploy cpx ingress
+# generate cert
+echo -n "-- prepare cert for cpx-ingress..."
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout cpx-ingress/cpx.key -out cpx-ingress/cpx.pem -subj "/CN=$(HOSTNAME)/O=$(HOSTNAME)" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+echo -n "-- register cert for cpx-ingress..."
+microk8s.kubectl create secret tls cpx-cert --key cpx-ingress/cpx.key --cert cpx-ingress/cpx.pem -n cpx-ingress >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
 
 echo -n "-- cpx-ingress..."
 microk8s.kubectl create -f cpx-ingress/cpx-ns.yaml -f cpx-ingress/cpx-rbac.yaml -f cpx-ingress/cpx.yaml >> $log
@@ -252,6 +293,37 @@ fi
 
 echo -n "-- cpx-blx 2-tier-ingress..."
 microk8s.kubectl create -f blx-ingress/blx-cpx-ingress.yaml >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+# deploy dashboard ingress
+echo -n "-- prepare cert for dashboard-ingress..."
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout dashboard/wildcard.key -out dashboard/wildcard.pem -subj "/CN=$(HOSTNAME)/O=$(HOSTNAME)" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+echo -n "-- register cert for dashboard-ingress..."
+microk8s.kubectl create secret tls wildcard-cert --key dashboard-ingress/wildcard.key --cert dashboard-ingress/wildcard.pem -n kube-system >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+echo -n "-- dashboard-ingress..."
+microk8s.kubectl create -f dashboard/dashboard-ingress.yaml >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
