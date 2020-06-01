@@ -52,6 +52,6 @@ sudo ./build-k8s-ingress-demo-in-a-box.sh
 
 # Notes:
 - this is for demo purpose, do not expect performance
-- at this time, there is no demo beside working ingress (more to come :-))
+- at this time, there is no demo beside working ingress (more to come 😊)
 - at this time, there will only be host ports 80/tcp and 443/tcp working on BLX ingress (tbd: changable in future)
 - BLX management is available on host port 9080 (http) and port 9443 (https)
