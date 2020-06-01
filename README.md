@@ -16,7 +16,7 @@ This will result in a all-in-a-box system. There is then
 
 # Deployment
 1. Install Ubuntu 20.04 system
-2. Install `zip` or `git
+2. Install `zip` or `git`
 ```shell
 sudo apt-get install zip
 ```
