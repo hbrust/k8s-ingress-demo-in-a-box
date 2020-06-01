@@ -16,18 +16,35 @@ This will result in a all-in-a-box system. There is then
 
 # Deployment
 1. Install Ubuntu 20.04 system
-2. Login to the system and clone repository
+2. Install `zip` or `git
+```shell
+sudo apt-get install zip
+```
+or
+```shell
+sudo apt-get install git
+```
+3. Login to the system and clone repository
 ```shell
 wget https://github.com/hbrust/k8s-ingress-demo-in-a-box/archive/master.zip
 unzip master.zip
 ```
-3. change into the k8s-ingress-demo-in-a-box directory
+or
 ```shell
-cd k8s-ingress-demo-in-a-box
+git clone https://github.com/hbrust/k8s-ingress-demo-in-a-box/archive/master.git
 ```
-4. download the [BLX Debian package from Citrix Downloads](https://www.citrix.com/downloads/citrix-adc/)
-5. Copy the `.tar.gz` package into the directory
-6. execute building script
+4. change into the k8s-ingress-demo-in-a-box directory
+if using `git clone` before
+```shell
+cd k8s-ingress-demo-in-a-box # if using git clone
+```
+or if using `wget` before
+```shell
+cd k8s-ingress-demo-in-a-box-master 
+```
+5. download the [BLX Debian package from Citrix Downloads](https://www.citrix.com/downloads/citrix-adc/)
+6. Copy the `.tar.gz` package into the directory
+7. execute building script
 ```shell
 ./build-k8s-ingress-demo-in-a-box
 ```
