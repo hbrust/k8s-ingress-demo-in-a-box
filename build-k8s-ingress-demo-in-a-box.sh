@@ -206,7 +206,7 @@ fi
 
 # generate ingress files from templates
 echo -n "- convert blx-cpx ingress template for testapp..."
-./convert-template.sh blx-ingress/blx-cpx-ingress.yaml.template > testapp/testapp-ingress.yaml
+./convert-template.sh blx-ingress/blx-cpx-ingress.yaml.template > testapp/blx-cpx-ingress.yaml
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
