@@ -44,9 +44,9 @@ cd k8s-ingress-demo-in-a-box-master
 ```
 5. download the [BLX Debian package from Citrix Downloads](https://www.citrix.com/downloads/citrix-adc/)
 6. Copy the `.tar.gz` package into the directory
-7. execute building script
+7. execute building script with root execution rights
 ```shell
-./build-k8s-ingress-demo-in-a-box
+sudo ./build-k8s-ingress-demo-in-a-box
 ```
 # Notes:
 - this is for demo purpose, do not expect performance
