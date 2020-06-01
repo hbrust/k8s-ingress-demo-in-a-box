@@ -46,7 +46,7 @@ cd k8s-ingress-demo-in-a-box-master
 6. Copy the `.tar.gz` package into the directory
 7. execute building script with root execution rights
 ```shell
-sudo ./build-k8s-ingress-demo-in-a-box
+sudo ./build-k8s-ingress-demo-in-a-box.sh
 ```
 # Notes:
 - this is for demo purpose, do not expect performance
