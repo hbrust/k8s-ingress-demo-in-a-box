@@ -14,6 +14,23 @@ This will result in a all-in-a-box system. There is then
 - BLX do not need second IP address and ingress is available on host port 80 and 443 
 - deployed test application for ingress
 
+# Deployment
+1. Install Ubuntu 20.04 system
+2. Login to the system and clone repository
+```shell
+wget https://github.com/hbrust/k8s-ingress-demo-in-a-box/archive/master.zip
+unzip master.zip
+```
+3. change into the k8s-ingress-demo-in-a-box directory
+```shell
+cd k8s-ingress-demo-in-a-box
+```
+4. download the [BLX Debian package from Citrix Downloads](https://www.citrix.com/downloads/citrix-adc/)
+5. Copy the `.tar.gz` package into the directory
+6. execute building script
+```shell
+./build-k8s-ingress-demo-in-a-box
+```
 # Notes:
 - this is for demo purpose, do not expect performance
 - at this time, there will only be host ports 80/tcp and 443/tcp working on BLX ingress (tbd: changable in future)
