@@ -205,7 +205,17 @@ else
 fi
 
 # generate ingress files from templates
-echo -n "- convert ingress template for testapp..."
+echo -n "- convert blx-cpx ingress template for testapp..."
+./convert-template.sh blx-ingress/blx-cpx-ingress.yaml.template > testapp/testapp-ingress.yaml
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+echo -n "- convert testapp ingress template for testapp..."
 ./convert-template.sh testapp/testapp-ingress.yaml.template > testapp/testapp-ingress.yaml
 if [ $? != 0 ]
 then 
@@ -251,7 +261,7 @@ else
 fi
 
 # deploy testapp
-echo -n "-- cpx-ingress..."
+echo -n "-- testapp..."
 microk8s.kubectl create -f testapp/testapp-ns.yaml -f testapp/testapp.yaml -f testapp/testapp-ingress.yaml >> $log
 if [ $? != 0 ]
 then 
