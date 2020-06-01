@@ -1,0 +1,19 @@
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: testapp-ingress
+  namespace: testapp
+  annotations:
+    kubernetes.io/ingress.class: "citrix"
+#    ingress.citrix.com/secure-backend: "True"
+spec:
+  rules:
+  - host: test.${HOSTNAME}
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: testapp-service
+          servicePort: 80
+---

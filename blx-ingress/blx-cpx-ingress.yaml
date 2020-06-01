@@ -1,0 +1,21 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: blx-cpx
+  namespace: cpx-ingress
+  annotations:
+    kubernetes.io/ingress.class: "blx-ingress"
+#   ingress.citrix.com/insecure-termination: "disallow"
+    ingress.citrix.com/frontend-ip: "192.0.0.5"
+#   ingress.citrix.com/secure_backend: '{"lb-service-frontend": "True"}'
+spec:
+#  tls:
+#  - secretName: blx-secret
+  rules:
+  - host:  test.lxhome02
+    http:
+      paths:
+      - path: 
+        backend:
+          serviceName: cpx-service
+          servicePort: 80

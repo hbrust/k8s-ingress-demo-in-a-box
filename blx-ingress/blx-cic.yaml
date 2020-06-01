@@ -1,0 +1,51 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: cic-blx
+  namespace: blx-ingress
+  labels:
+    app: cic-blx
+spec: 
+      serviceAccountName: sa-blx
+      containers:
+      - name: cic-blx
+        image: "quay.io/citrix/citrix-k8s-ingress-controller:1.7.6"
+        env:
+         # Set NetScaler NSIP/SNIP, SNIP in case of HA (mgmt has to be enabled) 
+         - name: "NS_IP"
+           value: "blx-mgmt"
+         # Set username for Nitro
+         # Set log level
+         - name: "NS_ENABLE_MONITORING"
+           value: "YES"
+         - name: "NS_APPS_NAME_PREFIX"
+           value: "frontend"
+         - name: "NS_USER"
+           value: "nsroot"
+         - name: "NS_PASSWORD"
+           value: "nsroot"
+#         - name: "NAMESPACE"
+#           valueFrom:
+#             fieldRef:
+#               apiVersion: v1
+#               fieldPath: metadata.namespace
+         - name: "EULA"
+           value: "yes"
+         - name: "LOGLEVEL"
+           value: "DEBUG"
+         - name: POD_NAME
+           valueFrom:
+             fieldRef:
+               apiVersion: v1
+               fieldPath: metadata.name
+         - name: POD_NAMESPACE
+           valueFrom:
+             fieldRef:
+               apiVersion: v1
+               fieldPath: metadata.namespace
+        args:
+          - --ingress-classes
+            blx-ingress
+          - --feature-node-watch
+            true
+        imagePullPolicy: IfNotPresent
