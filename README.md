@@ -49,7 +49,8 @@ cd k8s-ingress-demo-in-a-box-master
 ```shell
 sudo ./build-k8s-ingress-demo-in-a-box.sh
 ```
-8. wait about a minute for ingress to be ready
+8. let the script work through the tasks, this need some minutes
+9. wait about a minute for ingress to be ready
 
 Now you can access the following services:
 - `http://<hostname>:9080` -> BLX mgmt
