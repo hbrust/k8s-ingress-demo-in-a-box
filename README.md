@@ -7,12 +7,13 @@ This will build a demo-in-a-box for the [Citrix-Ingress-Controller (CIC)](https:
 - [Citrix BLX Debian package](https://www.citrix.com/downloads/citrix-adc/)
 
 # Architecture
-This will result in a all-in-a-box system. There is then
+This will result in an all-in-a-box system. There is then
 - Kubernetes (1-node cluster, MicroK8s)
 - CPX ingress on K8s (NodePort based)
 - BLX used as first ingress and CPX as second ingress (2tier-ingress)
 - BLX do not need second IP address and ingress is available on host port 80 and 443 
-- deployed test application for ingress
+- deployed test application for HTTP ingress
+- deployed K8s dashboard with HTTPs ingress
 
 # Deployment
 1. Install Ubuntu 20.04 system
