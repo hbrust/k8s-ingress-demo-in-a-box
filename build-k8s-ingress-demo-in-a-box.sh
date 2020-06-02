@@ -251,7 +251,7 @@ echo "- begin K8s config..."
 # deploy cpx ingress
 # generate cert
 echo -n "-- prepare cert for cpx-ingress..."
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout cpx-ingress/cpx.key -out cpx-ingress/cpx.pem -subj "/CN=$(HOSTNAME)/O=$(HOSTNAME)" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout cpx-ingress/cpx.key -out cpx-ingress/cpx.pem -subj "/CN=$HOSTNAME/O=$HOSTNAME" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
@@ -303,7 +303,7 @@ fi
 
 # deploy dashboard ingress
 echo -n "-- prepare cert for dashboard-ingress..."
-openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout dashboard/wildcard.key -out dashboard/wildcard.pem -subj "/CN=$(HOSTNAME)/O=$(HOSTNAME)" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
+openssl req -x509 -nodes -days 3650 -newkey rsa:2048 -keyout dashboard/wildcard.key -out dashboard/wildcard.pem -subj "/CN=$HOSTNAME/O=$HOSTNAME" -addext "subjectAltName = DNS:*.$HOSTNAME" >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
@@ -342,5 +342,15 @@ then
 else
   echo -e "${GREEN}[OK]${NC}"
 fi
+
+echo -e "- end k8s config ${GREEN}[DONE]${NC}"
+# end K8s config
+
+echo "  ****** ------- FINISH DEPLOYMENT"
+echo "  ******  You can reach the services:"
+echo "  ******    - BLX Mgmt: http://$HOSTNAME:9080!"
+echo "  ******    - K8s dashboard: https://dashboard.$HOSTNAME"
+echo "  ******    - testapp: http://test.$HOSTNAME "
+echo "  ****** -------"
 
 exit 0 
