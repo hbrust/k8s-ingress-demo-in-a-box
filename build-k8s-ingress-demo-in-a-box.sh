@@ -346,6 +346,27 @@ fi
 echo -e "- end k8s config ${GREEN}[DONE]${NC}"
 # end K8s config
 
+# get dashboard token
+echo -n "- get auth token for dashboard..."
+token=$(microk8s kubectl -n kube-system describe secret \
+      $(microk8s kubectl -n kube-system get secret | \
+      grep default-token | cut -d " " -f1) | \
+      grep "token:" | cut -d " " -f7)
+if [ $? != 0 ]
+then
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+echo ""
+echo "------- YOUR DASHBOARD TOKEN"
+echo $token
+echo "-------"
+echo ""
+
+# final output
 echo "  ****** ------- FINISH DEPLOYMENT"
 echo "  ******  You can reach the services:"
 echo "  ******    - BLX Mgmt: http://$HOSTNAME:9080!"
