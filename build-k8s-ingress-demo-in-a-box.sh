@@ -216,7 +216,7 @@ fi
 
 # generate ingress files from templates
 echo -n "- convert blx-cpx ingress template for testapp..."
-./convert-template.sh blx-ingress/blx-cpx-ingress.yaml.template > testapp/blx-cpx-ingress.yaml
+./convert-template.sh blx-ingress/blx-cpx-ingress.yaml.template > blx-ingress/blx-cpx-ingress.yaml
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
@@ -293,7 +293,7 @@ fi
 
 # deploy blx ingress
 echo -n "-- blx-ingress..."
-microk8s.kubectl create -f blx-ingress/blx-cic-ns.yaml -f blx-ingress/blx-mgmt-svc.yaml -f blx-ingress/blx-cic-rbac.yaml -f blx-ingress/blx-cic.yaml >> $log
+microk8s.kubectl create -f blx-ingress/blx-cic-ns.yaml -f blx-ingress/blx-cic-rbac.yaml -f blx-ingress/blx-mgmt-svc.yaml -f blx-ingress/blx-cic.yaml >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
@@ -324,7 +324,7 @@ else
 fi
 
 echo -n "-- register cert for dashboard-ingress..."
-microk8s.kubectl create secret tls wildcard-cert --key dashboard-ingress/wildcard.key --cert dashboard-ingress/wildcard.pem -n kube-system >> $log
+microk8s.kubectl create secret tls wildcard-cert --key dashboard/wildcard.key --cert dashboard/wildcard.pem -n kube-system >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
@@ -386,3 +386,4 @@ echo "  ******    - testapp: http://test.$HOSTNAME "
 echo "  ****** -------"
 
 exit 0 
+
