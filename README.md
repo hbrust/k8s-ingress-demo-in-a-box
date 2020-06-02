@@ -54,6 +54,7 @@ sudo ./build-k8s-ingress-demo-in-a-box.sh
 Now you can access the following services:
 - `http://<hostname>:9080` -> BLX mgmt
 - `https://dashboard.<hostname>` -> K8s dashboard via 2tier HTTPS ingress
+   The build script displays the login token at the end of the process.
 - `http://test.<hostname>` -> K8s testapp via 2tier HTTP ingress 
 
 # Notes:
