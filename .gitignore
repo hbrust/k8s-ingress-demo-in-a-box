@@ -1,2 +1,3 @@
-# exclude BLX package if exists
+# exclude BLX packages if exists
 blx*.tar.gz
+blx*.deb
