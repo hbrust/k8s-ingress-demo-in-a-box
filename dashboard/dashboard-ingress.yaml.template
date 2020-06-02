@@ -9,7 +9,7 @@ metadata:
     ingress.citrix.com/secure-backend: '{"kubernetes-dashboard":"true"}'
 spec:
   tls:
-  - secretName: cpx-cert
+  - secretName: wildcard-cert
   rules:
   - host: dashboard.${HOSTNAME}
     http:
@@ -18,3 +18,4 @@ spec:
         backend:
           serviceName: kubernetes-dashboard
           servicePort: 443
+
