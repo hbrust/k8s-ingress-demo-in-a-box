@@ -260,6 +260,17 @@ else
   echo -e "${GREEN}[OK]${NC}"
 fi
 
+echo -n "-- create namespace for cpx-ingress..."
+microk8s.kubectl create -f cpx-ingress/cpx-ns.yaml >> $log
+if [ $? != 0 ]
+then 
+  echo -e "${RED}[FAILED]${NC}"
+  exit 1
+else
+  echo -e "${GREEN}[OK]${NC}"
+fi
+
+
 echo -n "-- register cert for cpx-ingress..."
 microk8s.kubectl create secret tls cpx-cert --key cpx-ingress/cpx.key --cert cpx-ingress/cpx.pem -n cpx-ingress >> $log
 if [ $? != 0 ]
@@ -271,7 +282,7 @@ else
 fi
 
 echo -n "-- cpx-ingress..."
-microk8s.kubectl create -f cpx-ingress/cpx-ns.yaml -f cpx-ingress/cpx-rbac.yaml -f cpx-ingress/cpx.yaml >> $log
+microk8s.kubectl create -f cpx-ingress/cpx-rbac.yaml -f cpx-ingress/cpx.yaml >> $log
 if [ $? != 0 ]
 then 
   echo -e "${RED}[FAILED]${NC}"
