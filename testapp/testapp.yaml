@@ -6,16 +6,16 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: nginx
+      app: web-systeminfo
 #  replicas: 2 # tells deployment to run 2 pods matching the template
   template:
     metadata:
       labels:
-        app: nginx
+        app: web-systeminfo
     spec:
       containers:
-      - name: nginx
-        image: nginx:1.14.2
+      - name: webserver
+        image: marty808/web-systeminfo:0.2
         ports:
         - containerPort: 80
 ---
@@ -26,7 +26,7 @@ metadata:
   namespace: testapp
 spec:
   selector:
-    app: nginx
+    app: web-systeminfo
   ports:
     - protocol: TCP
       port: 80
