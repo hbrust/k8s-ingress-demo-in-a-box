@@ -5,6 +5,10 @@ This will build a demo-in-a-box for the [Citrix-Ingress-Controller (CIC)](https:
 - Ubuntu 20.04 installation (2vCPU / 4GB RAM)
 - optional: MicroK8s installed (the script will install it, if it is missing)
 - [Citrix BLX Debian package](https://www.citrix.com/downloads/citrix-adc/)
+- prepare your `/etc/hosts` file or your DNS to resolve </br>
+  - `dashboard.<ubuntuhostname>`
+  - `test.<ubuntuhostname>` </br>
+to IP of your ubuntu system 
 
 # Architecture
 This will result in an all-in-a-box system. There is then
