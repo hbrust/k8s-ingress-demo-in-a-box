@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: webserver
-        image: marty808/web-systeminfo:0.5
+        image: marty808/web-systeminfo:0.7
         ports:
         - containerPort: 80
 ---
